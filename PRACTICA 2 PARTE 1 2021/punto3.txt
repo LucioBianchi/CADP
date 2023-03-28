@@ -1,0 +1,4 @@
+// El error es que intenta esciribir la variable b en el programa local, pero esta
+variable no esta declarada como variable local, ni como variable global, sino que
+dentro del procedure uno. 
+El programa indica error al ejecutar porque la variable no esta declarada.

@@ -1,0 +1,9 @@
+a)
+i) El programa intenta llamar a la funcion analizar letra pero no esta en su alcance, porque
+es local al procedimiento leer
+ii) se podria definir la funcion analizar letra arriba del procedimiento leer
+b)
+i) no cubre los caracteres especiales o nunericos (distintos de mayusculares y minusculas)
+ii) Tira un error porque no devuelve ningun valor
+iii) Este problema se puede resolver cambiando la funcion analizarLetra por una que
+devuelva un int (1,2,3), siendo 3 el caso en el que el caracter es especial.

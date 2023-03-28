@@ -1,0 +1,3 @@
+// El error de este programa es que la variable a, declarada en el programa principal, no esta
+inicializa, por lo que imprime basura.
+// La función tampoco tiene sentido

@@ -1,0 +1,9 @@
+// El primer programa declara las variables a y b como variables globales, que luego son
+inicalizadas a 1 y 2 respesctivamente en el programa principal. Cuando se llama al procedure
+uno, a la variable a global se le vuelve a asignar el valor uno, por lo que imprimi 1 2 1.
+
+// El segundo programa declara las variables a y b como locales al programa principal.
+Esto provoca un error poque luego en el procedure uno se intenta imprimir a. El proceso va 
+a intentas buscar la variable a como una variable local (no existe), luego como un proceso
+(tampoco existe) y , por último, como una variable global, que tampoco existe. Es decir,
+este programa tira un error al ejecutar.

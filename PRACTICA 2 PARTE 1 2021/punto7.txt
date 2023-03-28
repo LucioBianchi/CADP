@@ -1,0 +1,8 @@
+a) Se debería al final agregar la instrucción calcularPromedio := prom;
+b) Se debería cambiar el if cant <> 0 por cant = 0 calcular promedio, else retornar -1. Se
+debería guardar el valor de la funcione una variable y deps hacer el if calcular promedio <> -1
+imprimir promedio, else no se puede dividir por cero.
+c) 
+i) Error en compilación porque la funcion no devuelve ningun valor
+ii) -1
+iii) 8
