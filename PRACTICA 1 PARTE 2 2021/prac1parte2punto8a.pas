@@ -11,15 +11,15 @@ BEGIN
     cant := 0;
     writeln('Ingrese el monto');
     readln(monto);
-    while monto <> 0 do begin
-      writeln('Ingrese el monto');
-      readln(monto);
+    while monto <> 0 do begin
       cant:= cant + 1;
       montomes := montomes + monto;
       if cant > maxcant then begin
         maxcant := cant;
-        diamayor := i;
+        diamayor := i;    
       end;
+      writeln('Ingrese el monto');
+      readln(monto);
     end;
     writeln('Cantidad de ventas del dia: ',cant);
   end;
