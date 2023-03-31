@@ -1,0 +1,11 @@
+1)
+a) 
+num 1= 9
+num 2= 12
+// imprime 9
+b)
+num 1= 14
+num 2= 7
+// imprime 14
+
+
