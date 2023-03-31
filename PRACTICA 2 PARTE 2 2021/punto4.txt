@@ -1,0 +1,15 @@
+4) 
+
+1. - 2 - Salario debería ser un parámetro de entrada y salida 
+
+2. - 8 - La variable maxSalario debería ser declarada como un parámetro de entrada
+         y salida, o de salida. En este caso, el salario del mayor legajo es guardado
+         correctamente pero no sale del proceso, por lo que queda inutilizado.
+
+3. - 20 - SumaSalarios no está declarada
+
+4. - 23 - Al proceso leerDatos se le pasan los parámetros salario y legajo pero en el orden
+          equivocado. Debería ser leerDatos(legajo,salario).
+
+5. - 28 - Se intenta imprimir la variable maxSalario pero esta no esta inicializada y tampoco
+          va a tener el resultado que se espera porque nunca fue utilizada como parametro.

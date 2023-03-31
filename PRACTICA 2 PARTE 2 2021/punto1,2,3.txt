@@ -1,0 +1,25 @@
+1)
+a- 11, 13 , 16 , 20 , 25 ---> imprime 25
+b- imprime 10
+c- Es un loop infinito, tira error porque se modifica i (Depende del compilador)
+
+2)
+a) par 4 impar 4
+
+3) 
+1. - 3 - Se supone que el proceso retorna c pero c esta declarado como un parametro de entrada,
+         no de entrada y salida.
+
+2. - 7 - Debería inicializar la variable suma
+
+3. - 8 - No se declada la variable i .Además, El enunciado dice que debe sumar los números entre a y b, pero utilizando el 
+         (for i := a to b), estaría sumando los numeros entre a y b además de los que
+         se encuentran entre ellos. Debería utilizar otros valores en el for.
+
+4. - 10 - c debería ser := c + suma
+
+5. Declarar a, b, ok
+
+6. Se le pasa un literal al proceso donde deberia haber un parametro por referencia.
+
+7. La condición da siempre verdadera, deberia usar un "and"
