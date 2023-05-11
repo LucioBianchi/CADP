@@ -1,0 +1,20 @@
+1) ¿Qué se define como memoria estática?
+Se define como memoria estática aquella que no cambia durante la ejecuación del programa. No
+permiten cambiar su tamaño en tiempo de ejecución.
+
+2) ¿Qué se define como memoria dinámica?
+Por otro lado, la memoria dinámica permite alocar memoria durante la ejecución del programa.
+En Pascal esto se hace mediante la funcion new(x)
+
+3) ¿Qué es una variable de tipo puntero?
+Una variable de tipo puntero es un tipo de dato simple definido por el programador que permite
+guardar una dirección de memoria dinámica. A su vez, este tipo de dato permite referenciar
+al dato que está guardado en este dirección de memoria, que puede ser de cualquiera de los
+tipos vistos durante el curso (entero,real,char,etc)
+
+4) ¿Qué hace la operación “NEW” aplicada en una variable del tipo puntero?
+Lo que hace la operación new es asignarle al puntero que se pasa como parámetro una dirección
+de memoria dinámica. 
+
+5) ¿Qué hace la operación “DISPOSE” aplicada en una variable del tipo puntero?
+La operación dispose libera la dirección de memoria que contenía la variable de tipo puntero.
