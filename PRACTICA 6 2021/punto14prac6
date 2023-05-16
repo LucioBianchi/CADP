@@ -1,0 +1,255 @@
+{14. La oficina de becas y subsidios desea optimizar los distintos tipos de ayuda financiera que se brinda a
+alumnos de la UNLP. Para ello, esta oficina cuenta con un registro detallado de todos los viajes realizados por
+una muestra de 1300 alumnos durante el mes de marzo. De cada viaje se conoce el código de alumno (entre 1
+y 1300), día del mes, Facultad a la que pertenece y medio de transporte (1. colectivo urbano; 2. colectivo
+interurbano; 3. tren universitario; 4. tren Roca; 5. bicicleta). Tener en cuenta que un alumno puede utilizar más
+de un medio de transporte en un mismo día.
+
+Además, esta oficina cuenta con una tabla con información sobre el precio de cada tipo de viaje.
+Realizar un programa que lea la información de los viajes de los alumnos y los almacene en una estructura de
+datos apropiada. La lectura finaliza al ingresarse el código de alumno -1, que no debe procesarse.
+Una vez finalizada la lectura, informar:
+
+a. La cantidad de alumnos que realizan más de 6 viajes por día
+
+b. La cantidad de alumnos que gastan en transporte más de $80 por día
+
+c. Los dos medios de transporte más utilizados.
+
+d. La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte.}
+
+{Hacer una lista con todos los viajes, insetar ordenado por alumno y despues procesar todo}
+
+program punto14prac6;
+type
+	medio = 1..5;
+	viaje = record
+		cod : integer;
+		dia : integer;
+		facultad : string;
+		transporte : medio;
+	end;
+	lista = ^nodo;
+	nodo = record
+		dato : viaje;
+		sig : lista;
+	end;
+	vPrecios = array[medio] of real; // --> Se dispone
+	vMedios = array[medio] of integer;
+	
+procedure leer (var v : viaje);
+begin
+	write('Ingresar codigo del alumno: ');
+	readln(v.cod);
+	if v.cod <> -1 then begin
+		write('Ingresar dia del vije: ');
+		readln(v.dia);
+		write('Ingresar facultad del alumno: ');
+		readln(v.facultad);
+		write('Ingresar medio de transporte: ');
+		readln(v.transporte);
+	end;
+end;
+
+{El programa esta insertando ordenado por alumno y yo estoy procesando como si estuviera ordenado por dia tambien}
+procedure insertarOrdenado(var pri : lista; v : viaje);
+var
+	nuevo,ant,act : lista;
+begin
+	new(nuevo);
+	nuevo^.dato := v;
+	if pri = nil then pri := nuevo
+	else begin
+		ant := pri;
+		act := pri;
+		while ((act <> nil) and (act^.dato.cod < nuevo^.dato.cod)) do begin
+			ant := act;
+			act := act^.sig;
+		end; 
+		while ((act <> nil) and (act^.dato.cod = nuevo^.dato.cod) and (act^.dato.dia < nuevo^.dato.dia)) do begin
+			ant := act;
+			act := act^.sig;
+		end;
+		if ant = act then pri := nuevo
+		else ant^.sig := nuevo;
+		nuevo^.sig := act;
+	end;
+end;
+
+procedure cargarLista (var pri : lista);
+var
+	v : viaje;
+begin
+	writeln('INGRESAR VIAJE');
+	leer(v);
+	while v.cod <> -1 do begin
+		insertarOrdenado(pri,v);
+		writeln('INGRESAR VIAJE');
+		leer(v);
+	end;
+end;
+
+{MODULOS QUE SE DISPONEN}
+
+procedure inicializarVPrecios (var vP : vPrecios);
+var
+	i : integer;
+begin
+	for i := 1 to 5 do begin
+		case i of
+			1: vP[i] := 15.5;
+			2: vP[i] := 20.8;
+			3: vP[i] := 45.7;
+			4: vP[i] := 35.5;
+			5: vP[i] := 29.7;
+		end;
+	end;
+end;
+
+{INCISO A}
+
+function incisoA (cantV : integer) : boolean;
+begin
+	incisoA := cantV > 6;
+end;
+
+{INCISO B}
+
+function calcularGasto (transporte : medio; vP : vPrecios) : real;
+begin
+	calcularGasto := vP[transporte];
+end;
+
+function incisoB (gasto : real) : boolean;
+begin
+	incisoB := gasto > 80;
+end;	
+
+{INCISO C}
+
+procedure inicializar (var v : vMedios);
+var
+	i : medio;
+begin
+	for i := 1 to 5 do begin
+		v[i] := 0;
+	end;
+end;
+
+procedure calcularMedios (var vM : vMedios; transporte : medio);
+begin
+	vM[transporte] := vM[transporte] + 1;
+end;
+
+procedure calcularMaximos(cant : integer; transporte : medio; var cantMax1,cantMax2 : integer; var max1,max2 : medio);
+begin
+	if cant > cantMax1 then begin
+		max2 := max1;
+		cantMax2 := Cantmax1;
+		max1 := transporte;
+		cantMax1 := cant;
+	end
+	else if cant > cantMax2 then begin
+		max2 := transporte;
+		cantMax2 := cant;
+	end;
+end;
+
+procedure calcularC (vM : VMedios; var max1,max2 : medio);
+var
+	i : medio;
+	cantMax1,cantMax2 : integer;
+begin
+	cantMax1 := -1;
+	cantMax2 := -1;
+	for i := 1 to 5 do
+		calcularMaximos(vM[i],i,cantMax1,cantMax2,max1,max2);
+end;
+
+procedure imprimirMedio (transporte : medio);
+begin
+	case transporte of
+		1: writeln('colectivo urbano');
+		2: writeln('colectivo interurbano');
+		3: writeln('tren universitario');
+		4: writeln('tren Roca');
+		5: writeln('bicicleta');
+		else writeln('---');
+	end;
+end;
+
+{INCISO D}
+
+function usaBicicleta(var bicicleta : boolean; transporte : medio) : boolean;
+begin
+	usaBicicleta := ((bicicleta) or (transporte = 5));
+end;
+
+function usaOtroMedio (var otroMedio : boolean; transporte : medio) : boolean;
+begin
+	usaOtroMedio := ((otroMedio) or (transporte = 1) or (transporte = 3) or (transporte = 4) or (transporte = 5));
+end;
+
+function incisoD (bicicleta,otroMedio : boolean) : boolean;
+begin
+	incisoD := ((bicicleta) and (otroMedio));
+end;
+
+var
+	pri,aux : lista;
+	alumnoActual,diaActual,cantV,cantA,cantB,cantD : integer;
+	cantP : real;
+	vP : vPrecios;
+	vM : vMedios;
+	bicicleta,otroMedio : boolean;
+	max1,max2 : medio;
+BEGIN
+	cantA := 0;
+	cantB := 0;
+	cantD := 0;
+	inicializar(vM);
+	inicializarVPrecios(vP);
+	pri := nil;
+	cargarLista(pri);
+	aux := pri;
+	while (aux <> nil) do begin
+		alumnoActual := aux^.dato.cod;
+		bicicleta := false;
+		otroMedio := false;
+		while ((aux <> nil) and (alumnoActual = aux^.dato.cod)) do begin
+			diaActual := aux^.dato.dia;
+			cantP := 0;
+			cantV := 0;
+			while ((aux <> nil) and (alumnoActual = aux^.dato.cod) and (diaActual = aux^.dato.dia)) do begin
+				cantV := cantV + 1;
+				cantP := cantP + calcularGasto(aux^.dato.transporte,vP);
+				calcularMedios(vM,aux^.dato.transporte); // --> Funciona mal
+				usaBicicleta(bicicleta,aux^.dato.transporte); // --> Funciona mal
+				usaOtroMedio(otroMedio,aux^.dato.transporte);
+				aux := aux^.sig;
+			end;
+		end;
+		{Calcular inciso A}
+		if incisoA(cantV) then cantA := cantA + 1;
+		{Cacular inciso B}
+		if incisoB(cantP) then cantB := cantB + 1;
+		{Calcular inciso D}
+		if incisoD(bicicleta,otroMedio) then cantD := cantD + 1;
+	end;
+	{Calcular inciso C}
+	calcularC(vM,max1,max2);
+	
+	{INCISO A}
+	writeln('Cantidad de alumnos que realizan mas de 6 viajes por dia: ',cantA);
+	{INCISO B}
+	writeln('Cantidad de alumnos que gastan mas de $80 por dia: ',cantB);
+	{INCISO C}
+	write('Transporte mas utilizado: ');
+	//imprimirMedio(max1);
+	writeln(max1);
+	write('Segundo transporte mas utilizado: ');
+	//imprimirMedio(max2);
+	writeln(max2);
+	{INCISO D}
+	writeln('Cantidad de alumnos que combinan bicicleta con algun otro medio de transporte: ',cantD);
+END.
